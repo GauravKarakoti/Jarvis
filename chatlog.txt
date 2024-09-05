@@ -1,0 +1,6 @@
+New! Keyboard shortcuts … Drive keyboard shortcuts have been updated to give you first-letters navigation
+chatlog.txt
+You : hello jarvis 
+Jarvis : Hello, how can I help you?
+You : hello jarvis 
+Jarvis : Hello, how can I help you?

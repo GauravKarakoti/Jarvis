@@ -1,0 +1,27 @@
+#include <Servo.h>
+
+Servo myservo;  // Create a servo object
+int servoPin = 9;  // Define the pin for the servo
+int neutralPosition = 90;  // Define the neutral position for the servo
+
+void setup() {
+  myservo.attach(servoPin);  // Attach the servo to the specified pin
+  myservo.write(neutralPosition);  // Move the servo to the neutral position initially
+  Serial.begin(9600);  // Start serial communication
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');  // Read serial input until newline
+    
+    if (input.equals("revert")) {
+      myservo.write(neutralPosition);  // Move the servo back to the neutral position
+    } else {
+      int targetAngle = input.toInt();  // Convert string to integer
+      
+      if (targetAngle >= 0 && targetAngle <= 180) {
+        myservo.write(targetAngle);  // Move the servo to the specified angle
+      }
+    }
+  }
+}
