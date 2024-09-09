@@ -24,7 +24,7 @@ def compareo():
         column2_data = df[column2]
         column3_data = df[column3]
        
-        plt.figure(figsize=(10, 6))  # Adjust the figure size if needed
+        plt.figure(figsize=(10, 6))
         plt.plot(column1_data, label=column1)
         plt.plot(column2_data, label=column2)
         plt.plot(column3_data, label=column3)
@@ -37,8 +37,7 @@ def compareo():
         plt.show()
 
     if __name__ == "__main__":
-        csv_file
-        file_name = "user_data.csv"
+        file_name = r"C:\Users\karak\OneDrive\Desktop\JARVIS\task_files\userdata.csv"
 
     create_comparison_graph(file_name)
 compareo()

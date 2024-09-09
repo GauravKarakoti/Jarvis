@@ -29,6 +29,6 @@ def sketch_image(image_path, output_path="sketch_with_contours.png"):
     cv2.imwrite(output_path, img)
 
 
-input_image_path = r'E:\MIST_AI\tree.jpg'
+input_image_path = r'C:\Users\karak\OneDrive\Desktop\JARVIS\Nasa_Images\.trashed-1714930680-2023-06-12.jpeg'
 output_sketch_with_contours_path = "sketch_with_contours.png"
 sketch_image(input_image_path, output_sketch_with_contours_path)

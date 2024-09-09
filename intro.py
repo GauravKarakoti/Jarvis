@@ -10,10 +10,8 @@ def intro():
         pygame.mixer.music.load(file_path)
         pygame.mixer.music.play()
 
-    # Replace 'your_audio_file.mp3' with your audio file path
-    audio_file_path = filepath
+    audio_file_path = r"C:\Users\karak\OneDrive\Desktop\JARVIS\Intro_audio.mp3"
 
-    # Play audio in a separate thread
     import threading
     audio_thread = threading.Thread(target=play_audio, args=(audio_file_path,))
-    audio_thread.start()
+    audio_thread.start()    

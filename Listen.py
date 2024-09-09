@@ -1,7 +1,4 @@
 import speech_recognition as sr 
-from googletrans import Translator 
-
-
 
 def Listen():
 
@@ -10,14 +7,16 @@ def Listen():
     with sr.Microphone() as source:
         print("Listening...")
         r.pause_threshold = 1
-        audio = r.listen(source,0,8) # Listening Mode.....
+        r.energy_threshold = 300
+        audio = r.listen(source,0,4) 
     
     try:
         print("Recognizing...")
-        query = r.recognize_google(audio,language="en")
+        query = r.recognize_google(audio,language="en-in")
 
-    except:
-        return ""
+    except Exception as e:
+        print("Say Again")
+        return "None"
     
     query = str(query).lower()
     return query
@@ -26,6 +25,5 @@ def Listen():
 
 def MicExecution():
     query = Listen()
-    data = query
-    return data
+    return query
 

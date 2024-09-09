@@ -1,4 +1,6 @@
-import nltk 
+import nltk
+nltk.download('punkt')
+nltk.download('punkt_tab')
 from nltk.stem.porter import PorterStemmer
 from torch.utils.data import Dataset,DataLoader
 import torch.nn as nn
@@ -178,7 +180,7 @@ def TasksExecutor(query):
         intents = json.load(json_data)
 
     FILE =task_path
-    data = torch.load(FILE)
+    data = torch.load(FILE,weights_only=True)
 
     input_size = data["input_size"]
     hidden_size = data["hidden_size"]

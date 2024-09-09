@@ -5,7 +5,6 @@ from Speak2 import Speak
 
 
 import speech_recognition as sr 
-from googletrans import Translator #pip install googletrans==3.1.0a0
 current_dir = os.getcwd()
 file_name="nOTEPAD"
 file_path = os.path.join(current_dir,file_name)
@@ -17,7 +16,7 @@ def Listen():
         print("Listening...")
         r.pause_threshold = 1
         r.energy_threshold = 300
-        audio = r.listen(source,0,5) # Listening Mode.....
+        audio = r.listen(source,0,5)
     
     try:
         print("Recognizing...")

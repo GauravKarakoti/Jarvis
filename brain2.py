@@ -16,7 +16,7 @@ pi_name="piHistory.txt"
 pi_path=os.path.join(current_dir,pi_name)
 
 chatpi_name="Chatnumberpi.txt"
-chatpi_path=os.join(current_dir,chatpi_name)
+chatpi_path=os.path.join(current_dir,chatpi_name)
 
 
 warnings.simplefilter("ignore")

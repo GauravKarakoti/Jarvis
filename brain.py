@@ -8,7 +8,7 @@ filepapth=os.path.join(current_dir,filename)
 filenaam="data.txt"
 fillepapth=os.path.join(current_dir,filenaam)
 
-from bardapi import BardCookies
+from bardapi import Bard
 import datetime
 import pyperclip
 import pyautogui
@@ -19,8 +19,7 @@ import keyboard
 
 
 def CookieScrapper():
-    print("")
-    print("*The extraction of essential cookies from GoogleBard has been accomplished successfully.*")
+    print("\n*The extraction of essential cookies from GoogleBard has been accomplished successfully.*")
     webbrowser.open("https://bard.google.com")
     sleep(10)
     pyautogui.click(x=1215, y=59)
@@ -35,69 +34,39 @@ def CookieScrapper():
     try:
         json_data = json.loads(data)
         print("*The process of loading cookies has been executed without any issues, and the cookies are now successfully integrated into the system.*")
-        pass
-
     except json.JSONDecodeError as e:
         print("*Cookies Loaded Unsuccessfully*")
-        print("""*The error has been identified as a result of unsuccessful cookie replication from the Chrome extension, 
-which is causing a disruption in the intended functionality.*""")
-     
-    SID = "__Secure-1PSID"
-    TS = "__Secure-1PSIDTS"
-    CC = "__Secure-1PSIDCC"
+        print(f"Error: {e}")
+        return None 
 
-    try:
-        SIDValue = next((item for item in json_data if item["name"] == SID), None)
-        TSValue = next((item for item in json_data if item["name"] == TS), None)
-        CCValue = next((item for item in json_data if item["name"] == CC), None)
+    SIDValue = next((item['value'] for item in json_data if item['name'] == "__Secure-1PSID"), None)
+    TSValue = next((item['value'] for item in json_data if item['name'] == "__Secure-1PSIDTS"), None)
+    CCValue = next((item['value'] for item in json_data if item['name'] == "__Secure-1PSIDCC"), None)
 
-        if SIDValue is not None:
-            SIDValue = SIDValue["value"]
-        else:
-            print(f"{SIDValue} not found in the JSON data.")
-
-        if TSValue is not None:
-            TSValue = TSValue["value"]
-        else:
-            print(f"{TSValue} not found in the JSON data.")
- 
-        if CCValue is not None:
-            CCValue = CCValue["value"]
-        else:
-            print(f"{CCValue} not found in the JSON data.")
-
+    if SIDValue and TSValue and CCValue:
         cookie_dict = {
-            "__Secure-1PSID": SIDValue ,
+            "__Secure-1PSID": SIDValue,
             "__Secure-1PSIDTS": TSValue,
             "__Secure-1PSIDCC": CCValue,
         }
-
-        print("")
-        print(f"===> Cookie 1 - {SIDValue}")
-        print(f"===> Cookie 2 - {TSValue}")
-        print(f"===> Cookie 3 - {CCValue}")
-        print("")
+        print(f"Cookie 1: {SIDValue}")
+        print(f"Cookie 2: {TSValue}")
+        print(f"Cookie 3: {CCValue}")
         return cookie_dict
-
-    except Exception as e:
-        Speak(e)
+    else:
+        print("Missing cookies.")
+        return None
 
 cookie_dict = CookieScrapper()
 
-# Initializing the GoogleBard Reverse Engineering Program
-
-try:
-    bard = BardCookies(cookie_dict=cookie_dict)
-    print("*The verification of cookies has been successfully completed.*")
-    print("*All processes have been completed successfully, and you now have the capability to employ JARVIS as a backend model.")
-    print("")
-
-except Exception as e:
-    print("*The verification of cookies has encountered an issue and has not been successful.*")
-    print("*This issue may arise due to the unsuccessful extraction of cookies from the extension.*")
-    print(e)
- 
-# Initiating the text modification function to generate a summarized version of the result text.
+if cookie_dict:
+    try:
+        bard = Bard(cookie_dict=cookie_dict, multi_cookies_bool=True)
+        print("*Cookies verified successfully. You can now use Bard.*")
+    except Exception as e:
+        print(f"Error during Bard initialization: {e}")
+else:
+    print("Failed to initialize Bard due to missing or invalid cookies.")
 
 def split_and_save_paragraphs(data, filename):
         

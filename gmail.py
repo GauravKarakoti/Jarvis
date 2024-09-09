@@ -11,7 +11,7 @@ def gmail():
         else:
 
             email_sender = "cutomers85@gmail.com"
-            email_password = "rjpjjpgpsvpaeywi"
+            email_password = "lnpatxhxlecbykxi"
 
             subject = "SUSTAINABLE DEVELOPMENT GOALS"
             body = '''I hope this email finds you well. Today, I wanted to take a moment to discuss an important global initiative that aims to create a better and more sustainable future for all of us - the Sustainable Development Goals (SDGs).

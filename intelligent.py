@@ -1,5 +1,6 @@
-from brain import ReplyBrain
+from brain5 import ReplyBrain
 from Listen import MicExecution
+import json
 print(">> Starting The Jarvis : Wait For Some Seconds.")
 from clap import Tester
 import speedtest
@@ -7,7 +8,7 @@ print(">> Started The Jarvis : Wait For Few Seconds More")
 from main import MainTaskExecution
 
 def MainExecution():
-    
+
     from Speak2 import Speak
     Speak("Jarvis onboard sir!")
     Speak("Initiating all commands!")
@@ -185,7 +186,7 @@ def MainExecution():
         elif "whatsapp message" in Data:
             pass
         
-        elif "current location" in data :
+        elif "current location" in Data :
             from location import system_locater
             system_locater()
         
@@ -202,9 +203,10 @@ def MainExecution():
             break
         
         else:
+           Data = Data.replace("Jarvis","")
            Reply = ReplyBrain(Data)
            Speak(Reply)
-
+           
 '''def ClapDetect():
 
     query = Tester()
