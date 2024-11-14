@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>16.jpg</file>
+        <file>a9176696b8740c402d84b55374ea0107_w200.gif</file>
+        <file>back.gif</file>
+        <file>lisnening.gif</file>
+        <file>resource.qrc</file>
+        <file>speaking.gif</file>
+        <file>suiit.gif</file>
+        <file>suit.jpg</file>
+        <file>waiting.gif</file>
+        <file>Enter.png</file>
+    </qresource>
+</RCC>

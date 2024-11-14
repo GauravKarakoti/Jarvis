@@ -37,7 +37,8 @@ def compareo():
         plt.show()
 
     if __name__ == "__main__":
-        file_name = r"C:\Users\karak\OneDrive\Desktop\JARVIS\task_files\userdata.csv"
+        csv_file
+        file_name = r"task_files\userdata.csv"
 
     create_comparison_graph(file_name)
 compareo()

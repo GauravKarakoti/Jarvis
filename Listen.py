@@ -7,7 +7,7 @@ def Listen():
     with sr.Microphone() as source:
         print("Listening...")
         r.pause_threshold = 1
-        r.energy_threshold = 300
+        #r.energy_threshold = 300
         audio = r.listen(source,0,4) 
     
     try:
@@ -20,8 +20,6 @@ def Listen():
     
     query = str(query).lower()
     return query
-
-
 
 def MicExecution():
     query = Listen()

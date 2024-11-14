@@ -1,136 +1,76 @@
 import requests
-import os
 from PIL import Image
-
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from time import sleep
+from io import BytesIO
 import datetime
-chrome_options = Options()
-chrome_options.add_argument('--log-level=3')
-chrome_options.headless = True
-Path = "DataBase\\chromedriver.exe"
-driver = webdriver.Chrome(Path,options=chrome_options)
-driver.maximize_window()
+import pyttsx3  # For text-to-speech functionality
 
-website = r"https://ttsmp3.com/text-to-speech/British%20English/"
-driver.get(website)
-ButtonSelection = Select(driver.find_element(by=By.XPATH,value='/html/body/div[4]/div[2]/form/select'))
-ButtonSelection.select_by_visible_text('British English / Brian')
+# NASA APOD API URL and your API key
+API_URL = "https://api.nasa.gov/planetary/apod"
+API_KEY = "qVnvwCyDg8fOUPULY1J9dEHBgguk78BHuroyzsxE"  # Replace with your actual API key
 
-def Speak(Text):
+# Function for text-to-speech
+def Speak(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
 
-    lengthoftext = len(str(Text))
+def fetch_apod_image(date):
+    # API parameters
+    params = {
+        "api_key": API_KEY,
+        "date": date,
+    }
 
-    if lengthoftext==0:
-        pass
-
-    else:
-        print("")
-        print(f"AI : {Text}.")
-        print("")
-        Data = str(Text)
-        xpathofsec = '/html/body/div[4]/div[2]/form/textarea'
-        driver.find_element(By.XPATH,value=xpathofsec).send_keys(Data)
-        driver.find_element(By.XPATH,value='//*[@id="vorlesenbutton"]').click()
-        driver.find_element(By.XPATH,value="/html/body/div[4]/div[2]/form/textarea").clear()
-
-        if lengthoftext>=30:
-            sleep(4)
-
-        elif lengthoftext>=40:
-            sleep(6)
-
-        elif lengthoftext>=55:
-            sleep(8)
-
-        elif lengthoftext>=70:
-            sleep(10)
-
-        elif lengthoftext>=100:
-            sleep(13)
-
-        elif lengthoftext>=120:
-            sleep(14)
-
-        else:
-            sleep(2)
-
-
-import speech_recognition as sr 
-from googletrans import Translator 
-
-
-def Listen():
-
-    r = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        print("Listening...")
-        r.pause_threshold = 1
-        r.energy_threshold = 300
-        audio = r.listen(source,0,5) # Listening Mode.....
-    
     try:
-        print("Recognizing...")
-        query = r.recognize_google(audio,language="en")
+        # Make a GET request to the NASA APOD API
+        response = requests.get(API_URL, params=params)
+        response.raise_for_status()  # Will raise an HTTPError for bad responses
+        data = response.json()
 
-    except:
-        return ""
-    
-    query = str(query).lower()
-    return query
+        # Check if the media type is an image
+        if data.get("media_type") == "image":
+            image_url = data["url"]  # Image URL from the API
+            title = data.get("title", "Astronomy Picture of the Day")
+            explanation = data.get("explanation", "No description available.")
+            
+            # Fetch the image
+            image_response = requests.get(image_url)
+            image_response.raise_for_status()  # Check if the image fetch was successful
+            image = Image.open(BytesIO(image_response.content))
 
+            # Display the image in a window
+            image.show(title=title)
 
+            # Print the title and description in the console
+            print(f"Title: {title}")
+            print(f"Description: {explanation}")
 
+            # Speak the title and description
+            Speak(f"Title: {title}")
+            Speak(f"Description: {explanation}")
+            
+        else:
+            print("The APOD for this date is not an image. Please try a different date.")
+            Speak("The APOD for this date is not an image. Please try a different date.")
 
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data from NASA: {e}")
+        Speak(f"Error fetching data from NASA: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        Speak(f"An error occurred: {e}")
 
+def NasaNews():
+    # Get date input from user in YYYY-MM-DD format
+    date_str = input("Enter a date (YYYY-MM-DD): ")
+    try:
+        # Validate date format
+        datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        fetch_apod_image(date_str)
+    except ValueError:
+        print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+        Speak("Invalid date format. Please enter the date in YYYY-MM-DD format.")
 
-
-def MicExecution():
-    query = Listen()
-    data = query
-    return data
-
-
-
-Api_Key = "v8cq2s9bXGBdTO3RBXzoAMIHRhpjCamA4l8AAC9m"
-
-def NasaNews(Date):
-    Speak("Extracting data from nasa")
-    Url = "https://api.nasa.gov/planetary/apod?api_key=" + str(Api_Key) 
-    Params = {'date':str(Date)}
-    r = requests.get(Url,params = Params)
-    Data = r.json()
-    Info = Data['explanation']
-    Title = Data['title']
-    Image_Url = Data['url']
-    Image_r = requests.get(Image_Url)
-    Filename = str(Date) + '.jpeg'
-    with open(Filename,'wb') as f:
-
-        f.write(Image_r.content)
-
-    Path_1 = "C:\\Users\\Ayush\\Desktop\\jarvis\\my ai\\" + str(Filename)
-    Path_2 = "C:\\Users\\Ayush\\Desktop\\jarvis\\my ai\\nasa data\\" + str(Filename)
-
-    os.rename(Path_1, Path_2)
-
-    img = Image.open(Path_2)
-
-    img.show()
-
-    Speak(f"Title : {Title}")
-    Speak(f"According To Nasa : {Info}")
-
-
-
-    
-
-
-
-
-   
-
+# Call main function
+if __name__ == "__main__":
+        NasaNews

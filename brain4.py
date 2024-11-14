@@ -1,6 +1,5 @@
 import re
 import long_responses as long
-from brain5 import ReplyBrain
 
 def message_probability(user_message, recognised_words, single_response=False, required_words=[]):
     message_certainty = 0

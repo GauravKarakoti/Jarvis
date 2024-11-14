@@ -10,7 +10,7 @@ def intro():
         pygame.mixer.music.load(file_path)
         pygame.mixer.music.play()
 
-    audio_file_path = r"C:\Users\karak\OneDrive\Desktop\JARVIS\Intro_audio.mp3"
+    audio_file_path = r"Intro_audio.mp3"
 
     import threading
     audio_thread = threading.Thread(target=play_audio, args=(audio_file_path,))
