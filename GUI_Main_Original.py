@@ -38,29 +38,45 @@ class GUIs_jarvis(QWidget):
 
     def exec_gifs(self):
         """Executes background GIFs."""
-        self.jarvisUi.backk = QMovie(r"Jarviss_giphys/back.gif")
+        # Background GIF
+        self.jarvisUi.backk = QMovie("Jarviss_giphys/back.gif")
         self.jarvisUi.label_5.setMovie(self.jarvisUi.backk)
         self.jarvisUi.backk.start()
 
-        self.jarvisUi.listening = QMovie(r"Jarviss_giphys/lisnening.gif")
+        # GIF for listening
+        self.jarvisUi.listening = QMovie("Jarviss_giphys/lisnening.gif")
         self.jarvisUi.label_4.setMovie(self.jarvisUi.listening)
         self.jarvisUi.listening.start()
-
-        self.jarvisUi.speak = QMovie(r"Jarviss_giphys\speaking.gif")
+        # GIF for speaking
+        self.jarvisUi.speak = QMovie("Jarviss_giphys/speaking.gif")
         self.jarvisUi.label_2.setMovie(self.jarvisUi.speak)
         self.jarvisUi.speak.start()
-
-        self.jarvisUi.wait = QMovie(r"Jarviss_giphys/waiting.gif")
+        # GIF for waiting
+        self.jarvisUi.wait = QMovie("Jarviss_giphys/waiting.gif")
         self.jarvisUi.label_3.setMovie(self.jarvisUi.wait)
         self.jarvisUi.wait.start()
+
+    def show_speaking_gif(self):
+        self.jarvisUi.label_2.setVisible(True)  # Show speaking GIF
+        self.jarvisUi.label_3.setVisible(False)  # Hide waiting GIF
+        self.jarvisUi.label_4.setVisible(False)  # Hide listening GIF
+
+    def show_listening_gif(self):
+        self.jarvisUi.label_2.setVisible(False)  # Hide speaking GIF
+        self.jarvisUi.label_3.setVisible(False)  # Hide waiting GIF
+        self.jarvisUi.label_4.setVisible(True)   # Show listening GIF
+
+    def show_waiting_gif(self):
+        self.jarvisUi.label_2.setVisible(False)  # Hide speaking GIF
+        self.jarvisUi.label_3.setVisible(True)   # Show waiting GIF
+        self.jarvisUi.label_4.setVisible(False)  # Hide listening GIF
+
 
     def on_enter_pressed(self):
         """Handles user input on pressing Enter button."""
         user_input = self.jarvisUi.lineEdit.text().strip().lower()
         if user_input:
             self.process_input(user_input)
-            # After processing input, disable the text box again
-            #self.jarvisUi.lineEdit.setEnabled(False)
 
     def process_input(self, input_text):
         response = self.get_ai_response(input_text)
@@ -71,15 +87,18 @@ class GUIs_jarvis(QWidget):
         return edd(input_text)
         
     def speak_response(self, response):
-        """Speaks out the response using pyttsx3."""
+        """Speaks out the response using pyttsx3 and shows speaking GIF."""
+        self.show_speaking_gif()
         engine.say(response)
         engine.runAndWait()
+        self.show_waiting_gif()  # Return to waiting GIF after speaking
 
     def listen_for_speech(self):
         """Listens for speech input from the user and processes it in a loop."""
         recognizer = sr.Recognizer()
         with sr.Microphone() as source:
             while True:  # Continuous loop for listening
+                self.show_listening_gif()
                 self.jarvisUi.plainTextEdit.appendPlainText("Listening for speech...")
                 recognizer.adjust_for_ambient_noise(source)
                 try:
@@ -93,6 +112,8 @@ class GUIs_jarvis(QWidget):
                     self.jarvisUi.plainTextEdit.appendPlainText("Speech service is unavailable.")
                 except Exception as e:
                     self.jarvisUi.plainTextEdit.appendPlainText(f"Error: {str(e)}")
+                finally:
+                    self.show_waiting_gif()  # Show waiting GIF after listening
 
     def start_listening_thread(self):
         """Start a separate thread to listen for speech."""
