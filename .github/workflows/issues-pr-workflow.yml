@@ -9,6 +9,8 @@ on:
 jobs:
   issue-labeler:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write   
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -17,12 +19,16 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: |
-            - enhancement
-            - bug
-            - high-priority
+            enhancement
+            bug
+            high-priority
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
   pr-checks:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -41,8 +47,10 @@ jobs:
 
   notify-maintainers:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'high-priority')
+    if: |
+      github.event.issue.labels && contains(join(github.event.issue.labels.*.name, ','), 'high-priority') ||
+      github.event.pull_request.labels && contains(join(github.event.pull_request.labels.*.name, ','), 'high-priority')
     steps:
-      - name: Notify maintainers for high-priority issues
+      - name: Notify maintainers for high-priority issues or PRs
         run: |
-          echo "@maintainers Please review the new high-priority issue: ${{ github.event.issue.html_url }}"
+          echo "@maintainers Please review the new high-priority item: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}"
