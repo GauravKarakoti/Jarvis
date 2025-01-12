@@ -29,14 +29,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Run code formatting check
-        run: npm run format-check
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-      - name: Run linting
-        run: npm run lint
+      - name: Install dependencies
+        run: |
+            pip install -r requirements.txt
 
       - name: Run tests
-        run: npm test
+        run: pytest
 
   notify-maintainers:
     runs-on: ubuntu-latest

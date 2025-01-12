@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import pyautogui
-import webbrowser as web
 import json
 import webbrowser
 import datetime
@@ -11,7 +10,6 @@ import speech_recognition as sr
 
 import os
 import speedtest
-import speech_recognition as sr 
 
 def Listen():
 
