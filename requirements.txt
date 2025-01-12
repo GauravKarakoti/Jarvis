@@ -14,8 +14,7 @@ cvzone
 pyserial
 numpy
 mediapipe
-googletrans==4.0.0rc1
-smtplib  
+googletrans==4.0.0rc1  
 PyQt5
 pyttsx3
 nltk
