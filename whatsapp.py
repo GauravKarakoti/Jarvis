@@ -1,51 +1,70 @@
 from selenium import webdriver
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import os
-from time import sleep
-from selenium import webdriver
-import pandas as pd
-from Speak2 import Speak
 import pathlib
-from Listen import MicExecution
+import time
 import keyboard
 
+def Whatsapp(Recipient_name, msg_recipient):
+    # Define the recipient name and message
+    Name = Recipient_name  # Ensure case consistency
+    mesg = msg_recipient
 
+    # WhatsApp contact dictionary (Update numbers as needed)
+    ListWeb = {
+        'yash': "+917683015091"
+    }
 
-scriptDirectory = pathlib.Path().absolute()
+    # Check if the recipient exists in the dictionary
+    if Name not in ListWeb:
+        print(f"Error: Sir {Name} not found in your contact list.")
+        exit()  # Exit the function if the recipient is not found
+        return
 
-chrome_option= Options()
-chrome_option.add_experimental_option("excludeSwitches", ["enable-logging"])
-chrome_option.add_argument("--profile-directory=Default")
-chrome_option.add_argument(f"user-data-dir={scriptDirectory}\\userdata")
-os.system("")
-os.environ["WDM_LOG_LEVEL"] = "0"
-PathofDriver = r"E:\JARIVS_MAIN\Driver\chromedriver.exe"
-driver = webdriver.Chrome(options=chrome_option)
-driver.maximize_window()
-driver.get("https://web.whatsapp.com/")
-print("Initializing The Whatsapp Software.")
-sleep(5)
-keyboard.press_and_release('alt +tab')
+    # Set up Chrome options
+    scriptDirectory = pathlib.Path().absolute()
+    chrome_option = Options()
+    chrome_option.add_experimental_option("excludeSwitches", ["enable-logging"])
+    chrome_option.add_argument("--profile-directory=Default")
+    chrome_option.add_argument(f"user-data-dir={scriptDirectory}\\userdata")  # Use existing WhatsApp login session
 
-
-ListWeb = {'ayush' : "+919873482808",
-            'sir': "+91",
-            'gaurav': "+91",
-            'papa' : "+91"}
-
-def WhatsappSender(Name):
-    Speak(f"Preparing To Send a Message To {Name}")
-    Speak("What's The Message By The Way?")
-    Message = MicExecution()
-    Number = ListWeb[Name]
-    LinkWeb = 'https://web.whatsapp.com/send?phone=' + Number + "&text=" + Message
-    driver.get(LinkWeb)
-    sleep(5)
+    # Initialize WebDriver
+    PathofDriver = "..\chromedriver.exe"  # Make this dynamic if possible
+    driver = webdriver.Chrome(options=chrome_option)
+    
     try:
-        driver.find_element(by=By.XPATH, value="//div//button/span[@data-icon='send']").click()
-        Speak("Message Sent")
+        driver.maximize_window()
+        driver.get("https://web.whatsapp.com/")
+        print("Initializing WhatsApp Web...")
         
-    except:
-        print("Invalid Number")
+        # Wait for the QR code scan/login
+        time.sleep(10)
+        keyboard.press_and_release('alt + tab')
+
+        # Generate the WhatsApp Web message URL
+        Number = ListWeb[Name]
+        LinkWeb = f'https://web.whatsapp.com/send?phone={Number}&text={mesg}'
+        driver.get(LinkWeb)
+
+        # Wait for the chat box to load
+        time.sleep(5)
+
+        # Find and click the send button
+        send_button_xpath = '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[2]/button/span'
+        try:
+            send_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, send_button_xpath)))
+            send_button.click()
+            print("Message Sent Successfully!")
+        except Exception as e:
+            print("Error: Could not send message.", e)
+
+    except Exception as e:
+        print("Unexpected Error:", e)
+    
+    finally:
+        # Keep the browser open for a while before closing
+        time.sleep(2)
+    

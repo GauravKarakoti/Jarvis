@@ -1,1 +1,5 @@
-fishy_mail.py
+.env
+__pycache__
+.venv
+Mars_Data
+Data/NASA_data

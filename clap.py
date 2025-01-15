@@ -3,7 +3,7 @@ import struct
 import math
 
 
-INITIAL_TAP_THRESHOLD = 0.2
+INITIAL_TAP_THRESHOLD = 0.1
 FORMAT = pyaudio.paInt16
 SHORT_NORMALIZE = (1.0 / 32768.0)
 CHANNELS = 1
@@ -98,6 +98,7 @@ class TapTester(object):
 
 
 def Tester():
+    import os
 
     tt = TapTester()
 
@@ -108,6 +109,11 @@ def Tester():
             print("")
             print("> Clap Detected : Starting The Jarvis.")
             print("")
+            os.startfile("main2.py")
             return "True-Mic"
+        
+Tester()
+            
+
 
 

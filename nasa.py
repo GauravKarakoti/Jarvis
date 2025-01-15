@@ -2,20 +2,42 @@ import requests
 from PIL import Image
 from io import BytesIO
 import datetime
-import pyttsx3  # For text-to-speech functionality
+import os
+from GUI import SetAssistantStatus,ShowTextToScreen
+from TextToSpeech import TextToSpeech
 
-# NASA APOD API URL and your API key
 API_URL = "https://api.nasa.gov/planetary/apod"
 API_KEY = "qVnvwCyDg8fOUPULY1J9dEHBgguk78BHuroyzsxE"  # Replace with your actual API key
 
-# Function for text-to-speech
-def Speak(text):
-    engine = pyttsx3.init()
-    engine.say(text)
-    engine.runAndWait()
+# Function to save the image and data
+def save_apod_image_and_data(date, title, explanation, image_url):
+    # Define the directory where you want to save the image and data
+    save_directory = r"Data\NASA_data"
+    
+    # Create the directory if it doesn't exist
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+
+    # Save the image
+    image_response = requests.get(image_url)
+    image_response.raise_for_status()  # Ensure the image is fetched successfully
+    image = Image.open(BytesIO(image_response.content))
+    
+    # Construct a filename for the image
+    image_filename = os.path.join(save_directory, f"{date}_apod_image.jpeg")
+    image.save(image_filename)
+
+    # Save the title and explanation to a text file
+    text_filename = os.path.join(save_directory, f"{date}_apod_data.txt")
+    with open(text_filename, "w") as file:
+        file.write(f"Title: {title}\n")
+        file.write(f"Description: {explanation}\n")
+
+    ShowTextToScreen(f"Image saved as {image_filename}")
+    ShowTextToScreen(f"Data saved as {text_filename}")
+    
 
 def fetch_apod_image(date):
-    # API parameters
     params = {
         "api_key": API_KEY,
         "date": date,
@@ -33,44 +55,33 @@ def fetch_apod_image(date):
             title = data.get("title", "Astronomy Picture of the Day")
             explanation = data.get("explanation", "No description available.")
             
-            # Fetch the image
+            # Display the image in a window
             image_response = requests.get(image_url)
             image_response.raise_for_status()  # Check if the image fetch was successful
             image = Image.open(BytesIO(image_response.content))
-
-            # Display the image in a window
             image.show(title=title)
 
             # Print the title and description in the console
             print(f"Title: {title}")
             print(f"Description: {explanation}")
 
-            # Speak the title and description
-            Speak(f"Title: {title}")
-            Speak(f"Description: {explanation}")
+            # Save the image and data to files
+            save_apod_image_and_data(date, title, explanation, image_url)
             
         else:
             print("The APOD for this date is not an image. Please try a different date.")
-            Speak("The APOD for this date is not an image. Please try a different date.")
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data from NASA: {e}")
-        Speak(f"Error fetching data from NASA: {e}")
     except Exception as e:
         print(f"An error occurred: {e}")
-        Speak(f"An error occurred: {e}")
 
-def NasaNews():
-    # Get date input from user in YYYY-MM-DD format
-    date_str = input("Enter a date (YYYY-MM-DD): ")
+def NasaNews(extraction_date):
+    date_str = extraction_date
+    
     try:
         # Validate date format
         datetime.datetime.strptime(date_str, "%Y-%m-%d")
         fetch_apod_image(date_str)
     except ValueError:
         print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-        Speak("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-
-# Call main function
-if __name__ == "__main__":
-        NasaNews
