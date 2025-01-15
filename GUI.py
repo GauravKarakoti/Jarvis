@@ -110,10 +110,10 @@ class InitialScreen(QWidget):
 
     def toggle_icon(self, event=None):
         if self.toggled:
-            self.load_icon(GraphicsDirectoryPath('Mic_on.png'), 60, 60)
+            self.load_icon(GraphicsDirectoryPath('Mic_off.png'), 60, 60)
             MicButtonInitialed()
         else:
-            self.load_icon(GraphicsDirectoryPath('Mic_off.png'), 60, 60)
+            self.load_icon(GraphicsDirectoryPath('Mic_on.png'), 60, 60)
             MicButtonClosed()
         self.toggled = not self.toggled
 
@@ -213,16 +213,11 @@ class ChatSection(QWidget):
     def toggle_icon(self):
         if not self.toggled:  # If the microphone is not already on
             self.toggle_button.setText("Stop Microphone")  # Change button text to "Stop Microphone"
-            self.start_microphone()  # Start the microphone
+            MicButtonClosed()
         else:  # If the microphone is already on
             self.toggle_button.setText("Start Microphone")  # Change button text back to "Start Microphone"
-            self.stop_microphone()  # Stop the microphone
-        
-        # Toggle the state
+            MicButtonInitialed()
         self.toggled = not self.toggled
-        
-        # Toggle the state
-    
 
     def load_icon(self, path, width=60, height=60):
         pixmap = QPixmap(path)

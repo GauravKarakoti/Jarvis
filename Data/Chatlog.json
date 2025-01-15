@@ -30,5 +30,181 @@
     {
         "role": "assistant",
         "content": "I think you're trying to get my attention! What's up?"
+    },
+    {
+        "role": "user",
+        "content": "Hello hello you understand if your listening."
+    },
+    {
+        "role": "assistant",
+        "content": "I get it! You're checking if I'm actively listening and understanding you. Yes, I'm here and listening!"
+    },
+    {
+        "role": "user",
+        "content": "Hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hi again!"
+    },
+    {
+        "role": "user",
+        "content": "How are you brother??"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm doing great, thanks for asking!"
+    },
+    {
+        "role": "user",
+        "content": "Can you listen to me now??"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm all ears! Go ahead and share what's on your mind."
+    },
+    {
+        "role": "user",
+        "content": "Hello hello hello hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "I think you're trying to test my patience! Just kidding, I'm still listening and ready to help whenever you need it."
+    },
+    {
+        "role": "user",
+        "content": "Yes."
+    },
+    {
+        "role": "assistant",
+        "content": "I'm ready when you are! What's next?"
+    },
+    {
+        "role": "user",
+        "content": "Hello hello hello hello hello hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "You're having a bit of fun, aren't you? I'm still here, waiting for a question or topic to discuss. Go ahead!"
+    },
+    {
+        "role": "user",
+        "content": "Can you listen to me now??"
+    },
+    {
+        "role": "assistant",
+        "content": "I've been listening all along! Please go ahead and share what's on your mind. I'm all ears!"
+    },
+    {
+        "role": "user",
+        "content": "Hello hello hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "I think we've established that I'm listening! What would you like to talk about or ask?"
+    },
+    {
+        "role": "user",
+        "content": "Cell.com."
+    },
+    {
+        "role": "assistant",
+        "content": "Cell.com is a website that provides access to Cell, a peer-reviewed scientific journal that publishes original research and reviews on cellular biology."
+    },
+    {
+        "role": "user",
+        "content": "Hello hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "I'm still here, listening and waiting for your next question or topic!"
+    },
+    {
+        "role": "user",
+        "content": "What is the distance from the earth to the sun??"
+    },
+    {
+        "role": "assistant",
+        "content": "The average distance from the Earth to the Sun is approximately 149.6 million kilometers (92.96 million miles)."
+    },
+    {
+        "role": "user",
+        "content": "Are you still listening."
+    },
+    {
+        "role": "assistant",
+        "content": "Yes, I'm still listening!"
+    },
+    {
+        "role": "user",
+        "content": "And are you still listening."
+    },
+    {
+        "role": "assistant",
+        "content": "I'm still listening!"
+    },
+    {
+        "role": "user",
+        "content": "Abid take the decision hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "It seems like you're trying to get my attention again! I'm still here, listening and ready to help. Who's Abid, and what decision are you referring to?"
+    },
+    {
+        "role": "user",
+        "content": "Stop microphone is not working and like that problem is in't with this thing problem is that."
+    },
+    {
+        "role": "assistant",
+        "content": "It sounds like you're experiencing some technical difficulties with your microphone or audio setup. Sorry to hear that! If you need help troubleshooting or finding a solution, I'm here to assist you."
+    },
+    {
+        "role": "user",
+        "content": "C listening is coming i have stopped it there it is stopped here listening is coming still hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "It seems like you're still experiencing some audio issues, and it's causing some confusion. Don't worry, I'm still here and listening, even if your microphone isn't working properly. If you need help or want to type out what you're trying to say, I'm here to assist you!"
+    },
+    {
+        "role": "user",
+        "content": "Hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hi again!"
+    },
+    {
+        "role": "user",
+        "content": "Kissing has happened hello hello hello."
+    },
+    {
+        "role": "assistant",
+        "content": "It seems like you're sharing some excitement or news! What's going on?"
+    },
+    {
+        "role": "user",
+        "content": "Hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hi!"
+    },
+    {
+        "role": "user",
+        "content": "Hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hi again!"
+    },
+    {
+        "role": "user",
+        "content": "Hello."
+    },
+    {
+        "role": "assistant",
+        "content": "Hi!"
     }
 ]

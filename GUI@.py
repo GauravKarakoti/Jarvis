@@ -110,10 +110,10 @@ class InitialScreen(QWidget):
 
     def toggle_icon(self, event=None):
         if self.toggled:
-            self.load_icon(GraphicsDirectoryPath('Mic_on.png'), 60, 60)
+            self.load_icon(GraphicsDirectoryPath('Mic_off.png'), 60, 60)
             MicButtonInitialed()
         else:
-            self.load_icon(GraphicsDirectoryPath('Mic_off.png'), 60, 60)
+            self.load_icon(GraphicsDirectoryPath('Mic_on.png'), 60, 60)
             MicButtonClosed()
         self.toggled = not self.toggled
 
@@ -211,16 +211,12 @@ class ChatSection(QWidget):
         self.chat_text_edit.moveCursor(QTextCursor.End)  # Use QTextCursor instead of Qt.TextCursor
 
     def toggle_icon(self):
-        if self.toggled:
-            # Stop microphone
-            self.toggle_button.setText("Start Microphone")
-            self.stop_microphone()  # Call a method to stop the microphone
-        else:
-            # Start microphone
-            self.toggle_button.setText("Stop Microphone")
-            self.start_microphone()  # Call a method to start the microphone
-        
-        # Toggle the state
+        if not self.toggled:  # If the microphone is not already on
+            self.toggle_button.setText("Stop Microphone")  # Change button text to "Stop Microphone"
+            MicButtonClosed()
+        else:  # If the microphone is already on
+            self.toggle_button.setText("Start Microphone")  # Change button text back to "Start Microphone"
+            MicButtonInitialed()
         self.toggled = not self.toggled
 
     def load_icon(self, path, width=60, height=60):
