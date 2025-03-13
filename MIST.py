@@ -36,9 +36,6 @@ def MainExecution():
             from hand_automations import computer_vision
             computer_vision()
 
-        elif "fishy Emails" in Data :
-            from fishy_mail import mail
-            mail()
         elif 'gmail' in Data:
             from gmail import gmail
             gmail()
@@ -209,7 +206,7 @@ def MainExecution():
 
         
         elif 'graph' in Data:
-            from Comparison_Graph import graph_creator
+            from Comparision_Graph import graph_creator
             Speak("Processing")    
             graph_creator()
 

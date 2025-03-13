@@ -38,10 +38,9 @@ def save_mars_image_and_data(rover_name, date, image_url, camera_name, metadata)
     print(f"✅ Metadata saved: {text_filename}\n")
 
 
-def MarsImg():
+def MarsImg(date):
     """ Fetches, displays, and saves Mars Rover images with metadata. """
     rover_name = 'curiosity'  # Choose: curiosity, opportunity, spirit, perseverance
-    date = '2015-03-09'  # Change this to any valid Earth date
 
     # Construct API URL
     url = f"https://api.nasa.gov/mars-photos/api/v1/rovers/{rover_name}/photos?earth_date={date}&api_key={API_KEY}"
@@ -99,6 +98,3 @@ def MarsImg():
         print(f"❌ Error fetching data from NASA API: {e}")
     except Exception as e:
         print(f"❌ An error occurred: {e}")
-
-# Run the function
-MarsImg()

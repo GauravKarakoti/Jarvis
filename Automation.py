@@ -1,7 +1,6 @@
 from AppOpener import close, open as appopen # Import fun
 from webbrowser import open as webopen
 from pywhatkit import search, playonyt # Import functions
-from dotenv import dotenv_values # Import dotenv to manag
 from bs4 import BeautifulSoup # Import BeautifulSoup for
 from rich import print # Import rich for styled console o
 from groq import Groq
@@ -11,10 +10,11 @@ import requests
 import keyboard
 import asyncio
 import os # Import os for operating system functionalitie
-
+from dotenv import load_dotenv
 # Load environment variables from the .env file.
-env_vars = dotenv_values(".env")
-GROQ_API_KEY = env_vars.get("GroqAPIKey")
+load_dotenv()
+# env_vars = dotenv_values(".env")
+GROQ_API_KEY = os.getenv("GroqAPIKey")
 
 classes = ["zCubwf", "hgKElc", "LTKOO sY7ric", "Z0LcW", "gsrt vk_bk FzvWSb YwPhnf", "pclqee", "tw-Data-text tw-text-small tw-ta",
 "IZ6rdc", "05uR6d LTKOO", "vlzY6d", "webanswers-webanswers_table_webanswers-table", "dDoNo ikb4Bb gsrt", "sXLa0e",
@@ -84,7 +84,7 @@ def Content(Topic):
     OpenNotepad(rf"Data\{Topic.lower().replace(' ','')}.txt") # Open the file in Notepad.
     return True # Indicate success.
 def YouTubeSearch(Topic):
-    Url4Search = f"https://ww.youtube.com/results?search_query={Topic}"
+    Url4Search = f"https://www.youtube.com/results?search_query={Topic}"
     webbrowser.open(Url4Search)
     # Open the search URL in a web browser.
     return True # Indicate success.
@@ -114,7 +114,7 @@ def OpenApp(app, sess=requests.session( )):
 
 # Nested function to perform a Google search and retrie
         def search_google(query):
-            url = f"https://ww.google.com/search?q={query}"#
+            url = f"https://www.google.com/search?q={query}"#
             headers = {"User-Agent": useragent} # Use the pred
             response = sess.get(url, headers=headers) # Perfor
 

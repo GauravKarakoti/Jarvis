@@ -24,6 +24,7 @@ import json
 import logging
 import os
 from PyQt5.QtCore import pyqtSignal, QObject
+from Mars import MarsImg
 
 class Communicate(QObject):
     exit_signal = pyqtSignal()
@@ -214,7 +215,7 @@ def Rover_Extractor():
     SetAssistantStatus("Searching... ")
     try:
         if __name__== "__main__":
-            Rover_Extractor(str(extraction_date))
+            MarsImg(str(extraction_date))
             SetAssistantStatus("Answering... ")
             ShowTextToScreen(f"{Assistantname} : {Ans4}")
             TextToSpeech(Ans4)
