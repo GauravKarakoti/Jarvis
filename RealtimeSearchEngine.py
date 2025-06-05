@@ -85,7 +85,7 @@ def realtime_search_engine(prompt):
     # Generate a response using Groq
     try:
         completion = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             messages=chatbot_system + messages,
             temperature=0.7,
             max_tokens=2048,

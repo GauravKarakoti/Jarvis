@@ -64,7 +64,7 @@ def chat_with_bot(query):
 
     try:
         completion = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             messages=system_chatbot + [{"role": "system", "content": get_realtime_information()}] + messages,
             max_tokens=1024,
             temperature=0.7,

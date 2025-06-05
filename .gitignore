@@ -1,5 +1,5 @@
 .env
 __pycache__
-.venv
+venv
 Mars_Data
 Data/NASA_data
